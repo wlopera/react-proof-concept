@@ -1,9 +1,29 @@
-function App() {
+import React from "react";
+
+import NavBar from "./components/NavBar";
+
+import "semantic-ui-css/semantic.min.css";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Dropdown from "./pages/dropdown/Dropdown";
+import Login from "./pages/route/Login";
+import DashBoard from "./pages/route/DashBoard";
+import PrivateRoute from "./components/PrivateRoute";
+
+const App = () => {
+  // Simular Autenticacion
+  const auth = true;
+
   return (
-    <div>
-      <h1>Hola Venzuela</h1>
-    </div>
+    <Router>
+      <NavBar />
+      <Switch>
+        <Route exact path="/dropdown" component={Dropdown} />
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute path="/dashboard" component={DashBoard} auth={auth} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;

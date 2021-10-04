@@ -27,6 +27,15 @@ const NavBar = () => {
                   Selector Dinámico
                 </a>
               </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/lifecycle"
+                >
+                  Ciclo de Vida
+                </a>
+              </li>
               {
                 <li className="nav-item dropdown">
                   <a

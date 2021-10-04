@@ -9,6 +9,7 @@ import Dropdown from "./pages/dropdown/Dropdown";
 import Login from "./pages/route/Login";
 import DashBoard from "./pages/route/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
+import Lifecycle from "./pages/lifecycle/Lifecycle";
 
 const App = () => {
   // Simular Autenticacion
@@ -19,6 +20,7 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route exact path="/dropdown" component={Dropdown} />
+        <Route exact path="/lifecycle" component={Lifecycle} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/dashboard" component={DashBoard} auth={auth} />
       </Switch>

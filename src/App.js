@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dropdown from "./pages/dropdown/Dropdown";
 import List from "./pages/list/List";
 import Lifecycle from "./pages/lifecycle/Lifecycle";
+import MyPromise from "./pages/promise/MyPromise";
 import Login from "./pages/route/Login";
 import DashBoard from "./pages/route/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
@@ -23,6 +24,7 @@ const App = () => {
         <Route exact path="/dropdown" component={Dropdown} />
         <Route exact path="/list" component={List} />
         <Route exact path="/lifecycle" component={Lifecycle} />
+        <Route exact path="/promise" component={MyPromise} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/dashboard" component={DashBoard} auth={auth} />
       </Switch>

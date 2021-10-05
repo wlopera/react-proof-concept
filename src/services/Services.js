@@ -19,3 +19,19 @@ export const addData = (options, value) => {
     data: [...options, newOption],
   };
 };
+
+export const testPromise = async (milliSeconds, type) => {
+  if (type === "EXITO") {
+    return await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("Exito...");
+      }, milliSeconds);
+    });
+  } else {
+    return await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject("Error...");
+      }, milliSeconds);
+    });
+  }
+};

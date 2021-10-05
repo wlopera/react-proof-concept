@@ -36,6 +36,11 @@ const NavBar = () => {
                   Ciclo de Vida
                 </a>
               </li>
+              <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="/list">
+                  Listas y Arreglos en React
+                </a>
+              </li>
               {
                 <li className="nav-item dropdown">
                   <a

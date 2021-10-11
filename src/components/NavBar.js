@@ -50,6 +50,15 @@ const NavBar = () => {
                   Promesas
                 </a>
               </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/formik"
+                >
+                  Formulario - Formik
+                </a>
+              </li>
               {
                 <li className="nav-item dropdown">
                   <a

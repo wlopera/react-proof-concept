@@ -12,6 +12,7 @@ import MyPromise from "./pages/promise/MyPromise";
 import Login from "./pages/route/Login";
 import DashBoard from "./pages/route/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
+import MyForMik from "./pages/form/MyForMik";
 
 const App = () => {
   // Simular Autenticacion
@@ -25,6 +26,7 @@ const App = () => {
         <Route exact path="/list" component={List} />
         <Route exact path="/lifecycle" component={Lifecycle} />
         <Route exact path="/promise" component={MyPromise} />
+        <Route exact path="/formik" component={MyForMik} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/dashboard" component={DashBoard} auth={auth} />
       </Switch>

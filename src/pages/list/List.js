@@ -10,6 +10,7 @@ const Arrays = () => {
       <hr />
       <ul>
         {list.map((person) => {
+          // El Key no se pasa al componente hijo
           return <Person key={person.id} person={person} />;
         })}
       </ul>

@@ -1,93 +1,119 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Formik, useField } from "formik";
 import * as Yup from "yup";
 
 import "./style.css";
 
 const MyForMik = () => {
-  const validate = (values) => {
-    const errors = {};
-    if (!values.firstname) {
-      errors.firstname = "Required";
-    } else if (values.firstname.length > 15) {
-      errors.firstname = "Debe tener menos de 15 caracteres";
-    }
+  const MyTextInput = ({ label, ...props }) => {
+    const [field, meta] = useField(props);
 
-    if (!values.lastname) {
-      errors.lastname = "Required";
-    } else if (values.lastname.length > 20) {
-      errors.lastname = "Debe tener menos de 20 caracteres";
-    }
-
-    if (!values.email) {
-      errors.email = "Required";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = "Correo invalido";
-    }
-
-    return errors;
+    console.log(1111, field);
+    console.log(2222, label);
+    console.log(3333, props);
+    return (
+      <>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <input className="text-input" {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </>
+    );
   };
 
-  const formik = useFormik({
-    initialValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-    },
-    // validate,
-    validationSchema: Yup.object({
-      firstname: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
-      lastname: Yup.string()
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
-      email: Yup.string().email("Invalid email address").required("Required"),
-    }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+  const MyCheckbox = ({ children, ...props }) => {
+    const [field, meta] = useField({ ...props, type: "checkbox" });
+
+    return (
+      <div>
+        <label className="checkbox-input">
+          <input type="checkbox" {...field} {...props} />
+          {children}
+        </label>
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  };
+
+  const MySelect = ({ label, ...props }) => {
+    const [field, meta] = useField(props);
+    return (
+      <div>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <select {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="firstname">Nombre:</label>
-      <input
-        id="firstname"
-        name="firstname"
-        type="firstname"
-        onChange={formik.handleChange}
-        value={formik.values.firstname}
-      />
-      {formik.touched.firstname && formik.errors.firstname ? (
-        <div>{formik.errors.firstname}</div>
-      ) : null}
-      <label htmlFor="lastname">Apellido:</label>
-      <input
-        id="lastname"
-        name="lastname"
-        type="lastname"
-        onChange={formik.handleChange}
-        value={formik.values.lastname}
-      />
-      {formik.touched.lastname && formik.errors.lastname ? (
-        <div>{formik.errors.lastname}</div>
-      ) : null}
-      <label htmlFor="email">Correo Electrónico:</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        onChange={formik.handleChange}
-        value={formik.values.email}
-      />
-      {formik.touched.email && formik.errors.email ? (
-        <div>{formik.errors.email}</div>
-      ) : null}
-      <button type="submit">Enviar</button>
-    </form>
+    <Formik
+      initialValues={{
+        firstname: "",
+        lastname: "",
+        email: "",
+      }}
+      validationSchema={Yup.object({
+        firstname: Yup.string()
+          .max(15, "Menos de 15 caracteres")
+          .required("Requido"),
+        lastname: Yup.string()
+          .max(20, "Menos de 20 caracteres")
+          .required("Requido"),
+        email: Yup.string().email("Correo invalido").required("Requido"),
+      })}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 400);
+      }}
+    >
+      {(formik) => (
+        <form onSubmit={formik.handleSubmit}>
+          <MyTextInput
+            label="Nombre"
+            name="firstname"
+            type="text"
+            placeholder="Introduzca su nombre"
+          />
+
+          <MyTextInput
+            label="Apellido"
+            name="lastname"
+            type="text"
+            placeholder="Introduzca su apellido"
+          />
+
+          <MyTextInput
+            label="Correo Electrónico"
+            name="email"
+            type="email"
+            placeholder="Introduzca su correo"
+          />
+
+          <MySelect label="Trabajo" name="jobType">
+            <option value="">Seleccione su tipo de trabajo</option>
+            <option value="designer">Diseñador</option>
+            <option value="development">Desarrollador</option>
+            <option value="product">Gerente</option>
+            <option value="other">Otro</option>
+          </MySelect>
+
+          <MyCheckbox name="acceptedTerms">
+            Acepto los terminos y condiciones
+          </MyCheckbox>
+
+          <br />
+          <button type="submit">Enviar</button>
+        </form>
+      )}
+    </Formik>
   );
 };
 
